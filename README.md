@@ -28,7 +28,9 @@ http://localhost:3000 で確認できます。
 npm run discover:jp
 ```
 
-TMDbの`now_playing`/`upcoming`(`region=JP`)から新作を検出し、IMDb IDが判明した作品だけ`tracked-movies.json`に追加する(既存作品は重複追加しない)。追加後は下記の`fetch:tmdb`を一括実行してメタデータを埋める。
+TMDbの`/discover/movie`(`region=JP`、劇場公開、過去180日〜未来90日、最大10ページ=200件を走査)から日本公開作品を検出し、IMDb IDが判明した作品だけ`tracked-movies.json`に追加する(既存作品は重複追加しない)。追加後は下記の`fetch:tmdb`を一括実行してメタデータを埋める。
+
+実際に何件ヒットするかは、その時点の日本の劇場公開本数やIMDb ID登録状況に依存するため、特定の件数(例: 100件)への到達を保証するものではない。件数を増やしたい場合は、`scripts/discover-jp-releases.ts`内の`PAST_DAYS`(既定180日)や`MAX_PAGES`(既定10ページ)を調整する。
 
 ### 2. TMDbから基本メタデータを取得
 
