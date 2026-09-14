@@ -1,0 +1,22 @@
+{
+  "id": "tt15239678",
+  "slug": "dune-part-two",
+  "titleJa": "デューン 砂の惑星PART2",
+  "titleOriginal": "Dune: Part Two",
+  "releaseDateJapan": "2024-03-01",
+  "posterUrl": "",
+  "overview": "父の仇を討つため、ポール・アトレイデスはチャニやフレメンたちと共に、彼の家族を滅ぼした者たちへの復讐の道を歩む。",
+  "status": "now_showing",
+  "technicalSpecs": {
+    "aspectRatio": "2.39 : 1 / 1.43 : 1 (IMAX)",
+    "camera": ["ARRI Alexa 65", "IMAX MSM 9802 (some scenes)"],
+    "negativeFormat": "Digital",
+    "printedFilmFormat": "D-Cinema, IMAX 70 mm (select engagements)",
+    "cinematographicProcess": "Panavision Sphero 65 (also Digital Intermediate)"
+  },
+  "sourceUrls": {
+    "imdb": "https://www.imdb.com/title/tt15239678/technical/",
+    "tmdb": "https://www.themoviedb.org/movie/693134"
+  },
+  "lastUpdated": "2026-09-14T00:00:00.000Z"
+}

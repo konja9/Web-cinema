@@ -1,0 +1,22 @@
+{
+  "id": "tt6710474",
+  "slug": "everything-everywhere-all-at-once",
+  "titleJa": "エブリシング・エブリウェア・オール・アット・ワンス",
+  "titleOriginal": "Everything Everywhere All at Once",
+  "releaseDateJapan": "2022-07-01",
+  "posterUrl": "",
+  "overview": "コインランドリーを営む冴えない中年女性が、並行世界を渡り歩きながら世界の危機に立ち向かう。",
+  "status": "now_showing",
+  "technicalSpecs": {
+    "aspectRatio": "1.85 : 1",
+    "camera": ["ARRI Alexa Mini LF", "Zeiss Supreme Prime Lenses"],
+    "negativeFormat": "Digital",
+    "printedFilmFormat": "D-Cinema",
+    "cinematographicProcess": "Digital Intermediate (4K) (master format)"
+  },
+  "sourceUrls": {
+    "imdb": "https://www.imdb.com/title/tt6710474/technical/",
+    "tmdb": "https://www.themoviedb.org/movie/545611"
+  },
+  "lastUpdated": "2026-09-14T00:00:00.000Z"
+}

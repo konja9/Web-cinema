@@ -1,0 +1,20 @@
+{
+  "id": "tt6718170",
+  "slug": "the-super-mario-bros-movie-2",
+  "titleJa": "サンプル:公開予定作品",
+  "titleOriginal": "Sample Upcoming Film",
+  "releaseDateJapan": "2026-12-18",
+  "posterUrl": "",
+  "overview": "公開予定作品のサンプルデータ。実データ登録前のプレースホルダー。",
+  "status": "upcoming",
+  "technicalSpecs": {
+    "aspectRatio": "2.00 : 1",
+    "camera": ["Sony Venice 2"],
+    "negativeFormat": "Digital",
+    "printedFilmFormat": "D-Cinema"
+  },
+  "sourceUrls": {
+    "imdb": "https://www.imdb.com/title/tt6718170/technical/"
+  },
+  "lastUpdated": "2026-09-14T00:00:00.000Z"
+}
