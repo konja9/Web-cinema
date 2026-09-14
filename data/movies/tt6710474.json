@@ -8,10 +8,14 @@
   "overview": "コインランドリーを営む冴えない中年女性が、並行世界を渡り歩きながら世界の危機に立ち向かう。",
   "status": "now_showing",
   "technicalSpecs": {
+    "aspectRatio": "1.85 : 1",
     "camera": [
       "ARRI Alexa Mini LF",
       "Zeiss Supreme Prime Lenses"
-    ]
+    ],
+    "negativeFormat": "Digital",
+    "printedFilmFormat": "D-Cinema",
+    "cinematographicProcess": "Digital Intermediate (4K) (master format)"
   },
   "sourceUrls": {
     "imdb": "https://www.imdb.com/title/tt6710474/technical/",

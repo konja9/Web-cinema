@@ -114,9 +114,15 @@ async function main() {
           sourceUrls: { imdb: `https://www.imdb.com/title/${imdbId}/technical/` },
         };
 
+    // specs内のundefinedなフィールド(取得できなかった項目)で
+    // 既存の値を上書きしないよう、定義済みの値だけを取り出してマージする
+    const definedSpecs = Object.fromEntries(
+      Object.entries(specs).filter(([, value]) => value !== undefined),
+    );
+
     const updated = {
       ...existing,
-      technicalSpecs: { ...existing.technicalSpecs, ...specs },
+      technicalSpecs: { ...existing.technicalSpecs, ...definedSpecs },
       lastUpdated: new Date().toISOString(),
     };
 

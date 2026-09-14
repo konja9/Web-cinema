@@ -8,10 +8,14 @@
   "overview": "父の仇を討つため、ポール・アトレイデスはチャニやフレメンたちと共に、彼の家族を滅ぼした者たちへの復讐の道を歩む。",
   "status": "now_showing",
   "technicalSpecs": {
+    "aspectRatio": "2.39 : 1 / 1.43 : 1 (IMAX)",
     "camera": [
       "ARRI Alexa 65",
       "IMAX MSM 9802 (some scenes)"
-    ]
+    ],
+    "negativeFormat": "Digital",
+    "printedFilmFormat": "D-Cinema, IMAX 70 mm (select engagements)",
+    "cinematographicProcess": "Panavision Sphero 65 (also Digital Intermediate)"
   },
   "sourceUrls": {
     "imdb": "https://www.imdb.com/title/tt15239678/technical/",
