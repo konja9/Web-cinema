@@ -9,15 +9,14 @@
   "status": "classic",
   "highlightReason": "technical_highlight",
   "technicalSpecs": {
-    "aspectRatio": "2.76 : 1",
-    "camera": ["Panavision System 65 Cameras", "Ultra Panatar Lenses"],
-    "negativeFormat": "65 mm",
-    "printedFilmFormat": "70 mm (also D-Cinema)",
-    "cinematographicProcess": "Ultra Panavision 70"
+    "camera": [
+      "Panavision System 65 Cameras",
+      "Ultra Panatar Lenses"
+    ]
   },
   "sourceUrls": {
     "imdb": "https://www.imdb.com/title/tt3460252/technical/",
     "tmdb": "https://www.themoviedb.org/movie/273248"
   },
-  "lastUpdated": "2026-09-14T00:00:00.000Z"
+  "lastUpdated": "2026-09-14T22:23:04.950Z"
 }

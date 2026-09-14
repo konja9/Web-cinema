@@ -9,15 +9,14 @@
   "status": "classic",
   "highlightReason": "technical_highlight",
   "technicalSpecs": {
-    "aspectRatio": "2.20 : 1",
-    "camera": ["Super Panavision 70 Cameras", "MCS-65 Camera"],
-    "negativeFormat": "65 mm",
-    "printedFilmFormat": "70 mm (also 35 mm reduction prints)",
-    "cinematographicProcess": "Super Panavision 70"
+    "camera": [
+      "Super Panavision 70 Cameras",
+      "MCS-65 Camera"
+    ]
   },
   "sourceUrls": {
     "imdb": "https://www.imdb.com/title/tt0062622/technical/",
     "tmdb": "https://www.themoviedb.org/movie/62"
   },
-  "lastUpdated": "2026-09-14T00:00:00.000Z"
+  "lastUpdated": "2026-09-14T22:23:01.925Z"
 }
