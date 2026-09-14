@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllMovies, getMovieBySlug } from "@/lib/movies";
@@ -41,19 +42,37 @@ export default async function MovieDetailPage({
         ← 一覧に戻る
       </Link>
 
-      <header className="flex flex-col gap-2">
-        <span className="w-fit rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-          {statusLabel[movie.status]}
-        </span>
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-          {movie.titleJa}
-        </h1>
-        <p className="text-zinc-500 dark:text-zinc-400">
-          {movie.titleOriginal}
-        </p>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
-          日本公開日: {movie.releaseDateJapan}
-        </p>
+      <header className="flex flex-col gap-4 sm:flex-row">
+        <div className="relative h-72 w-48 shrink-0 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+          {movie.posterUrl ? (
+            <Image
+              src={movie.posterUrl}
+              alt={`${movie.titleJa}のポスター`}
+              fill
+              sizes="192px"
+              className="object-cover"
+              priority
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-sm text-zinc-400 dark:text-zinc-500">
+              No Image
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="w-fit rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+            {statusLabel[movie.status]}
+          </span>
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+            {movie.titleJa}
+          </h1>
+          <p className="text-zinc-500 dark:text-zinc-400">
+            {movie.titleOriginal}
+          </p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            日本公開日: {movie.releaseDateJapan}
+          </p>
+        </div>
       </header>
 
       {movie.overview && (

@@ -24,7 +24,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <div className="flex flex-1 flex-col">{children}</div>
+        <footer className="border-t border-zinc-200 px-6 py-4 text-center text-xs text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
+          This product uses the TMDB API but is not endorsed or certified by
+          TMDB.
+        </footer>
+      </body>
     </html>
   );
 }

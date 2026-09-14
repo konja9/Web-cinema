@@ -3,7 +3,10 @@
  * data/movies/<imdbId>.json の該当フィールドをマージ更新する。
  *
  * 使い方:
- *   TMDB_API_KEY=xxxx npx tsx scripts/fetch-tmdb.ts <TMDb movie id> <imdb id> <slug>
+ *   単発実行:   TMDB_API_KEY=xxxx npx tsx scripts/fetch-tmdb.ts <TMDb movie id> <imdb id> <slug>
+ *   一括実行:   TMDB_API_KEY=xxxx npx tsx scripts/fetch-tmdb.ts
+ *              (引数なしの場合、data/tracked-movies.json の全件を処理する。
+ *               GitHub Actionsの毎日自動更新はこのモードを使う)
  *
  * 技術仕様(アスペクト比・カメラ等)はTMDbには存在しないため、
  * scripts/scrape-imdb-specs.ts で別途取得する。
@@ -13,6 +16,13 @@ import path from "node:path";
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const MOVIES_DIR = path.join(process.cwd(), "data", "movies");
+const TRACKED_MOVIES_PATH = path.join(
+  process.cwd(),
+  "data",
+  "tracked-movies.json",
+);
+
+type TrackedMovie = { tmdbId: string; imdbId: string; slug: string };
 
 type TmdbMovie = {
   title: string;
@@ -46,17 +56,7 @@ function getJapanReleaseDate(data: TmdbReleaseDates, fallback: string) {
   return theatrical?.release_date.slice(0, 10) ?? fallback;
 }
 
-async function main() {
-  const [tmdbId, imdbId, slug] = process.argv.slice(2);
-  if (!TMDB_API_KEY) {
-    throw new Error("環境変数 TMDB_API_KEY を設定してください");
-  }
-  if (!tmdbId || !imdbId || !slug) {
-    throw new Error(
-      "使い方: npx tsx scripts/fetch-tmdb.ts <TMDb movie id> <imdb id> <slug>",
-    );
-  }
-
+async function updateMovie({ tmdbId, imdbId, slug }: TrackedMovie) {
   const movie = await fetchJson<TmdbMovie>(
     `https://api.themoviedb.org/3/movie/${tmdbId}?language=ja-JP`,
   );
@@ -98,6 +98,37 @@ async function main() {
   fs.mkdirSync(MOVIES_DIR, { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(updated, null, 2) + "\n");
   console.log(`更新しました: ${filePath}`);
+}
+
+async function main() {
+  if (!TMDB_API_KEY) {
+    throw new Error("環境変数 TMDB_API_KEY を設定してください");
+  }
+
+  const [tmdbId, imdbId, slug] = process.argv.slice(2);
+
+  if (tmdbId && imdbId && slug) {
+    await updateMovie({ tmdbId, imdbId, slug });
+    return;
+  }
+
+  if (tmdbId || imdbId || slug) {
+    throw new Error(
+      "使い方: npx tsx scripts/fetch-tmdb.ts <TMDb movie id> <imdb id> <slug>\n" +
+        "(引数を省略した場合は data/tracked-movies.json の全件を処理します)",
+    );
+  }
+
+  if (!fs.existsSync(TRACKED_MOVIES_PATH)) {
+    throw new Error(`追跡対象リストが見つかりません: ${TRACKED_MOVIES_PATH}`);
+  }
+  const tracked: TrackedMovie[] = JSON.parse(
+    fs.readFileSync(TRACKED_MOVIES_PATH, "utf-8"),
+  );
+
+  for (const entry of tracked) {
+    await updateMovie(entry);
+  }
 }
 
 main().catch((err) => {

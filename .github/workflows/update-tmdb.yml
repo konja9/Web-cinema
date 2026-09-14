@@ -1,0 +1,40 @@
+name: Update TMDb metadata
+
+on:
+  schedule:
+    # 18:00 UTC = 日本時間 朝3:00
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch TMDb metadata for all tracked movies
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: npm run fetch:tmdb
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/movies; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git add data/movies
+          git commit -m "chore: update TMDb metadata"
+          git push

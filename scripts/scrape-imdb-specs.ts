@@ -11,13 +11,21 @@
  *   4. 商用利用・大規模配信を行わない
  *
  * 使い方:
- *   npx tsx scripts/scrape-imdb-specs.ts tt1234567 tt7654321
+ *   単発/複数指定: npx tsx scripts/scrape-imdb-specs.ts tt1234567 tt7654321
+ *   一括実行:      npx tsx scripts/scrape-imdb-specs.ts
+ *                 (引数なしの場合、data/tracked-movies.json の全件を処理する。
+ *                  GitHub Actionsの週次自動更新はこのモードを使う)
  */
 import fs from "node:fs";
 import path from "node:path";
 import * as cheerio from "cheerio";
 
 const MOVIES_DIR = path.join(process.cwd(), "data", "movies");
+const TRACKED_MOVIES_PATH = path.join(
+  process.cwd(),
+  "data",
+  "tracked-movies.json",
+);
 const REQUEST_INTERVAL_MS = 3000;
 const USER_AGENT =
   "web-cinema-spec-bot/0.1 (personal, non-commercial data collection; contact: set-your-contact-here)";
@@ -73,13 +81,19 @@ async function scrapeTechnicalSpecs(imdbId: string): Promise<ScrapedSpecs> {
   return specs;
 }
 
-async function main() {
-  const ids = process.argv.slice(2);
-  if (ids.length === 0) {
-    throw new Error(
-      "使い方: npx tsx scripts/scrape-imdb-specs.ts tt1234567 [tt7654321 ...]",
-    );
+function loadTrackedImdbIds(): string[] {
+  if (!fs.existsSync(TRACKED_MOVIES_PATH)) {
+    throw new Error(`追跡対象リストが見つかりません: ${TRACKED_MOVIES_PATH}`);
   }
+  const tracked: Array<{ imdbId: string }> = JSON.parse(
+    fs.readFileSync(TRACKED_MOVIES_PATH, "utf-8"),
+  );
+  return tracked.map((entry) => entry.imdbId);
+}
+
+async function main() {
+  const argIds = process.argv.slice(2);
+  const ids = argIds.length > 0 ? argIds : loadTrackedImdbIds();
 
   for (const [index, imdbId] of ids.entries()) {
     if (index > 0) await sleep(REQUEST_INTERVAL_MS);

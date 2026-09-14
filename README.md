@@ -20,19 +20,29 @@ http://localhost:3000 で確認できます。
 
 ## データ更新
 
+追跡する作品は `data/tracked-movies.json` に `{ tmdbId, imdbId, slug }` の形で登録する。ここに登録した作品が自動更新・一括更新の対象になる。
+
 ### 1. TMDbから基本メタデータを取得
 
 ```bash
 cp .env.example .env.local
 # .env.local に TMDB_API_KEY を設定
 
+# 単発実行(1作品だけ)
 npm run fetch:tmdb -- <TMDb movie id> <imdb id> <slug>
+
+# 一括実行(data/tracked-movies.json の全件)
+npm run fetch:tmdb
 ```
 
 ### 2. IMDbから技術仕様を取得
 
 ```bash
+# 単発/複数指定
 npm run scrape:imdb -- tt1234567 tt7654321
+
+# 一括実行(data/tracked-movies.json の全件)
+npm run scrape:imdb
 ```
 
 複数IDを渡すとまとめて取得できます(3秒間隔でリクエスト)。
@@ -46,6 +56,20 @@ npm run scrape:imdb -- tt1234567 tt7654321
 ### 3. 手動でのデータ編集
 
 `data/movies/<imdb id>.json` を直接編集しても構いません。フィールドの定義は `lib/movie-schema.ts` を参照してください。
+
+### 4. 自動更新(GitHub Actions)
+
+`.github/workflows/` に2つの定期実行ワークフローがある。
+
+- `update-tmdb.yml`: **毎日**、TMDbの基本メタデータ(公開日・あらすじ・ポスター・公開中/予定ステータス)を自動更新
+- `update-imdb-specs.yml`: **毎週月曜**、IMDbの技術仕様(アスペクト比・カメラ等)を自動更新(規約リスクを抑えるため低頻度)
+
+差分があれば `github-actions[bot]` が自動でコミット・pushする。利用には以下の設定が必要。
+
+- リポジトリの Settings → Secrets and variables → Actions で `TMDB_API_KEY` を登録
+- Settings → Actions → General → Workflow permissions を「Read and write permissions」に設定(自動コミットのpushに必要)
+
+`workflow_dispatch` にも対応しているため、Actionsタブから手動トリガーもできる。
 
 ## ディレクトリ構成
 

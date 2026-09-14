@@ -1,0 +1,40 @@
+name: Update IMDb technical specs
+
+# 注意: IMDbのスクレイピングは利用規約上グレーな行為のため、
+# 実行頻度を週1回程度の低頻度に抑えている(scripts/scrape-imdb-specs.ts 冒頭の注意事項も参照)。
+on:
+  schedule:
+    # 毎週月曜 19:00 UTC = 日本時間 火曜 朝4:00
+    - cron: "0 19 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Scrape IMDb technical specs for all tracked movies
+        run: npm run scrape:imdb
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/movies; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git add data/movies
+          git commit -m "chore: update IMDb technical specs"
+          git push
