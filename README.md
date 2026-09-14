@@ -65,6 +65,15 @@ npm run scrape:imdb
 
 `data/movies/<imdb id>.json` を直接編集しても構いません。フィールドの定義は `lib/movie-schema.ts` を参照してください。
 
+### 旧作(classic)の掲載基準
+
+新作(`now_showing`/`upcoming`)とは別に、以下いずれかの基準を満たす旧作を `status: "classic"` として掲載する。
+
+- **技術的に特筆すべき作品**(`highlightReason: "technical_highlight"`): 特殊なアスペクト比・撮影フォーマット(70mm、Ultra Panavision 70、IMAXなど)で知られる作品
+- **日本でのリバイバル上映作品**(`highlightReason: "revival_screening"`): 実際に日本で再上映された実績のある作品
+
+`classic`作品は`discover:jp`の対象外(新作発見スクリプトのため)。`tracked-movies.json`に手動で追加し、`fetch:tmdb`/`scrape:imdb`でメタデータを取得する。`fetch:tmdb`は`status: "classic"`を公開日による自動判定で上書きしない。
+
 ### 5. 自動更新(GitHub Actions)
 
 `.github/workflows/` に2つの定期実行ワークフローがある。

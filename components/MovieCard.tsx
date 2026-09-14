@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Movie } from "@/lib/movie-schema";
-
-const statusLabel: Record<Movie["status"], string> = {
-  now_showing: "公開中",
-  upcoming: "公開予定",
-};
+import { statusLabel } from "@/lib/labels";
 
 export default function MovieCard({ movie }: { movie: Movie }) {
   return (

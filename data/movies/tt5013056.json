@@ -1,0 +1,23 @@
+{
+  "id": "tt5013056",
+  "slug": "dunkirk",
+  "titleJa": "ダンケルク",
+  "titleOriginal": "Dunkirk",
+  "releaseDateJapan": "2017-09-09",
+  "posterUrl": "",
+  "overview": "クリストファー・ノーラン監督作品。IMAX 65mmとPanavision System 65を組み合わせた撮影で知られ、日本でもIMAXでのリバイバル上映歴がある。",
+  "status": "classic",
+  "highlightReason": "revival_screening",
+  "technicalSpecs": {
+    "aspectRatio": "1.43 : 1 (IMAX) / 2.20 : 1 (65 mm)",
+    "camera": ["IMAX MSM 9802", "Panavision System 65"],
+    "negativeFormat": "65 mm",
+    "printedFilmFormat": "IMAX 70 mm, 70 mm, 35 mm, D-Cinema",
+    "cinematographicProcess": "IMAX, Panavision System 65"
+  },
+  "sourceUrls": {
+    "imdb": "https://www.imdb.com/title/tt5013056/technical/",
+    "tmdb": "https://www.themoviedb.org/movie/374720"
+  },
+  "lastUpdated": "2026-09-14T00:00:00.000Z"
+}

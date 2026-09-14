@@ -86,7 +86,13 @@ async function updateMovie({ tmdbId, imdbId, slug }: TrackedMovie) {
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
       : existing.posterUrl,
     overview: movie.overview || existing.overview,
-    status: isFuture ? "upcoming" : "now_showing",
+    // classic(旧作)として手動掲載した作品は公開日による自動ステータス判定の対象外にする
+    status:
+      existing.status === "classic"
+        ? "classic"
+        : isFuture
+          ? "upcoming"
+          : "now_showing",
     technicalSpecs: existing.technicalSpecs ?? {},
     sourceUrls: {
       imdb: `https://www.imdb.com/title/${imdbId}/technical/`,

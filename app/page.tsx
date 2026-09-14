@@ -6,6 +6,7 @@ export default function Home() {
   const movies = getAllMovies();
   const nowShowing = movies.filter((m) => m.status === "now_showing");
   const upcoming = movies.filter((m) => m.status === "upcoming");
+  const classics = movies.filter((m) => m.status === "classic");
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-12">
@@ -53,6 +54,24 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {classics.length > 0 && (
+        <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+              旧作
+            </h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              技術的に特筆すべき作品、日本でのリバイバル上映作品を掲載しています。
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {classics.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

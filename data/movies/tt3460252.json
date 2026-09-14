@@ -1,0 +1,23 @@
+{
+  "id": "tt3460252",
+  "slug": "the-hateful-eight",
+  "titleJa": "ヘイトフル・エイト",
+  "titleOriginal": "The Hateful Eight",
+  "releaseDateJapan": "2016-04-08",
+  "posterUrl": "",
+  "overview": "クエンティン・タランティーノ監督作品。約半世紀ぶりにUltra Panavision 70で撮影され、超横長のアスペクト比が話題となった。",
+  "status": "classic",
+  "highlightReason": "technical_highlight",
+  "technicalSpecs": {
+    "aspectRatio": "2.76 : 1",
+    "camera": ["Panavision System 65 Cameras", "Ultra Panatar Lenses"],
+    "negativeFormat": "65 mm",
+    "printedFilmFormat": "70 mm (also D-Cinema)",
+    "cinematographicProcess": "Ultra Panavision 70"
+  },
+  "sourceUrls": {
+    "imdb": "https://www.imdb.com/title/tt3460252/technical/",
+    "tmdb": "https://www.themoviedb.org/movie/273248"
+  },
+  "lastUpdated": "2026-09-14T00:00:00.000Z"
+}

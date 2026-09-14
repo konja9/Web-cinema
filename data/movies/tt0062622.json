@@ -1,0 +1,23 @@
+{
+  "id": "tt0062622",
+  "slug": "2001-a-space-odyssey",
+  "titleJa": "2001年宇宙の旅",
+  "titleOriginal": "2001: A Space Odyssey",
+  "releaseDateJapan": "1968-04-11",
+  "posterUrl": "",
+  "overview": "スタンリー・キューブリック監督によるSF映画の金字塔。Super Panavision 70による65mm撮影は映画史上屈指の技術的達成として知られる。",
+  "status": "classic",
+  "highlightReason": "technical_highlight",
+  "technicalSpecs": {
+    "aspectRatio": "2.20 : 1",
+    "camera": ["Super Panavision 70 Cameras", "MCS-65 Camera"],
+    "negativeFormat": "65 mm",
+    "printedFilmFormat": "70 mm (also 35 mm reduction prints)",
+    "cinematographicProcess": "Super Panavision 70"
+  },
+  "sourceUrls": {
+    "imdb": "https://www.imdb.com/title/tt0062622/technical/",
+    "tmdb": "https://www.themoviedb.org/movie/62"
+  },
+  "lastUpdated": "2026-09-14T00:00:00.000Z"
+}

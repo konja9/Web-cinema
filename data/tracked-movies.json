@@ -8,5 +8,20 @@
     "tmdbId": "545611",
     "imdbId": "tt6710474",
     "slug": "everything-everywhere-all-at-once"
+  },
+  {
+    "tmdbId": "62",
+    "imdbId": "tt0062622",
+    "slug": "2001-a-space-odyssey"
+  },
+  {
+    "tmdbId": "273248",
+    "imdbId": "tt3460252",
+    "slug": "the-hateful-eight"
+  },
+  {
+    "tmdbId": "374720",
+    "imdbId": "tt5013056",
+    "slug": "dunkirk"
   }
 ]

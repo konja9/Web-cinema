@@ -3,11 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllMovies, getMovieBySlug } from "@/lib/movies";
 import { slugify } from "@/lib/slugify";
-
-const statusLabel = {
-  now_showing: "公開中",
-  upcoming: "公開予定",
-} as const;
+import { statusLabel, highlightReasonLabel } from "@/lib/labels";
 
 export function generateStaticParams() {
   return getAllMovies().map((movie) => ({ slug: movie.slug }));
@@ -59,9 +55,16 @@ export default async function MovieDetailPage({
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <span className="w-fit rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-            {statusLabel[movie.status]}
-          </span>
+          <div className="flex flex-wrap gap-2">
+            <span className="w-fit rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+              {statusLabel[movie.status]}
+            </span>
+            {movie.highlightReason && (
+              <span className="w-fit rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+                {highlightReasonLabel[movie.highlightReason]}
+              </span>
+            )}
+          </div>
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
             {movie.titleJa}
           </h1>
