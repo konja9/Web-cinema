@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getAllMovies } from "@/lib/movies";
 import MovieCard from "@/components/MovieCard";
 
@@ -15,6 +16,20 @@ export default function Home() {
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           日本で公開中・公開予定の作品のアスペクト比・カメラなどの撮影技術仕様を一覧できます。
         </p>
+        <nav className="flex gap-4 text-sm">
+          <Link
+            href="/cameras"
+            className="underline decoration-dotted underline-offset-2 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          >
+            カメラから探す
+          </Link>
+          <Link
+            href="/aspect-ratios"
+            className="underline decoration-dotted underline-offset-2 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          >
+            アスペクト比から探す
+          </Link>
+        </nav>
       </header>
 
       <section className="flex flex-col gap-4">

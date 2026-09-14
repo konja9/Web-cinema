@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "fetch:tmdb": "tsx scripts/fetch-tmdb.ts",
-    "scrape:imdb": "tsx scripts/scrape-imdb-specs.ts"
+    "scrape:imdb": "tsx scripts/scrape-imdb-specs.ts",
+    "discover:jp": "tsx scripts/discover-jp-releases.ts"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

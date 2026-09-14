@@ -22,6 +22,11 @@ jobs:
 
       - run: npm ci
 
+      - name: Discover new Japan releases
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: npm run discover:jp
+
       - name: Fetch TMDb metadata for all tracked movies
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
@@ -31,10 +36,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- data/movies; then
+          if git diff --quiet -- data/movies data/tracked-movies.json; then
             echo "No changes to commit"
             exit 0
           fi
-          git add data/movies
+          git add data/movies data/tracked-movies.json
           git commit -m "chore: update TMDb metadata"
           git push

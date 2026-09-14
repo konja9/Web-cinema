@@ -22,7 +22,15 @@ http://localhost:3000 で確認できます。
 
 追跡する作品は `data/tracked-movies.json` に `{ tmdbId, imdbId, slug }` の形で登録する。ここに登録した作品が自動更新・一括更新の対象になる。
 
-### 1. TMDbから基本メタデータを取得
+### 1. 日本公開の新作を自動発見して追跡対象に追加
+
+```bash
+npm run discover:jp
+```
+
+TMDbの`now_playing`/`upcoming`(`region=JP`)から新作を検出し、IMDb IDが判明した作品だけ`tracked-movies.json`に追加する(既存作品は重複追加しない)。追加後は下記の`fetch:tmdb`を一括実行してメタデータを埋める。
+
+### 2. TMDbから基本メタデータを取得
 
 ```bash
 cp .env.example .env.local
@@ -35,7 +43,7 @@ npm run fetch:tmdb -- <TMDb movie id> <imdb id> <slug>
 npm run fetch:tmdb
 ```
 
-### 2. IMDbから技術仕様を取得
+### 3. IMDbから技術仕様を取得
 
 ```bash
 # 単発/複数指定
@@ -53,15 +61,15 @@ npm run scrape:imdb
 - リクエスト頻度を上げすぎない(デフォルト3秒間隔を変更しない)
 - 取得データを商用利用・大規模再配布しない
 
-### 3. 手動でのデータ編集
+### 4. 手動でのデータ編集
 
 `data/movies/<imdb id>.json` を直接編集しても構いません。フィールドの定義は `lib/movie-schema.ts` を参照してください。
 
-### 4. 自動更新(GitHub Actions)
+### 5. 自動更新(GitHub Actions)
 
 `.github/workflows/` に2つの定期実行ワークフローがある。
 
-- `update-tmdb.yml`: **毎日**、TMDbの基本メタデータ(公開日・あらすじ・ポスター・公開中/予定ステータス)を自動更新
+- `update-tmdb.yml`: **毎日**、新作発見(`discover:jp`)→ TMDbの基本メタデータ(公開日・あらすじ・ポスター・公開中/予定ステータス)を自動更新
 - `update-imdb-specs.yml`: **毎週月曜**、IMDbの技術仕様(アスペクト比・カメラ等)を自動更新(規約リスクを抑えるため低頻度)
 
 差分があれば `github-actions[bot]` が自動でコミット・pushする。利用には以下の設定が必要。
@@ -74,12 +82,18 @@ npm run scrape:imdb
 ## ディレクトリ構成
 
 ```
-app/                    Next.js App Router
-  page.tsx              一覧ページ
-  movies/[slug]/page.tsx  詳細ページ
-components/              UIコンポーネント
-data/movies/*.json      作品データ
-lib/movie-schema.ts     データ型定義(zod)
-lib/movies.ts           データ読み込みユーティリティ
-scripts/                データ収集スクリプト
+app/                          Next.js App Router
+  page.tsx                    一覧ページ
+  movies/[slug]/page.tsx      詳細ページ
+  cameras/page.tsx            カメラ一覧(逆引き)
+  cameras/[slug]/page.tsx     カメラ別の作品一覧
+  aspect-ratios/page.tsx      アスペクト比一覧(逆引き)
+  aspect-ratios/[slug]/page.tsx  アスペクト比別の作品一覧
+components/                   UIコンポーネント
+data/movies/*.json           作品データ
+data/tracked-movies.json     自動更新の追跡対象台帳
+lib/movie-schema.ts          データ型定義(zod)
+lib/movies.ts                データ読み込み・集計ユーティリティ
+lib/slugify.ts                URLスラッグ生成
+scripts/                      データ収集スクリプト
 ```

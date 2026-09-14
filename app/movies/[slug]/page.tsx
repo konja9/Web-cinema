@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllMovies, getMovieBySlug } from "@/lib/movies";
+import { slugify } from "@/lib/slugify";
 
 const statusLabel = {
   now_showing: "公開中",
@@ -25,9 +26,7 @@ export default async function MovieDetailPage({
   }
 
   const specs = movie.technicalSpecs;
-  const specRows: Array<[string, string | undefined]> = [
-    ["アスペクト比", specs.aspectRatio],
-    ["カメラ", specs.camera?.join(" / ")],
+  const plainSpecRows: Array<[string, string | undefined]> = [
     ["ネガフォーマット", specs.negativeFormat],
     ["上映フォーマット", specs.printedFilmFormat],
     ["撮影プロセス", specs.cinematographicProcess],
@@ -84,7 +83,48 @@ export default async function MovieDetailPage({
           技術仕様
         </h2>
         <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {specRows.map(([label, value]) => (
+          <div className="flex flex-col gap-0.5">
+            <dt className="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+              アスペクト比
+            </dt>
+            <dd className="text-sm text-zinc-800 dark:text-zinc-200">
+              {specs.aspectRatio ? (
+                <Link
+                  href={`/aspect-ratios/${slugify(specs.aspectRatio)}`}
+                  className="underline decoration-dotted underline-offset-2 hover:text-zinc-950 dark:hover:text-zinc-50"
+                >
+                  {specs.aspectRatio}
+                </Link>
+              ) : (
+                "情報なし"
+              )}
+            </dd>
+          </div>
+          <div className="flex flex-col gap-0.5">
+            <dt className="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+              カメラ
+            </dt>
+            <dd className="text-sm text-zinc-800 dark:text-zinc-200">
+              {specs.camera && specs.camera.length > 0 ? (
+                <span className="flex flex-wrap gap-x-1">
+                  {specs.camera.map((camera, index) => (
+                    <span key={camera}>
+                      <Link
+                        href={`/cameras/${slugify(camera)}`}
+                        className="underline decoration-dotted underline-offset-2 hover:text-zinc-950 dark:hover:text-zinc-50"
+                      >
+                        {camera}
+                      </Link>
+                      {index < specs.camera!.length - 1 && " / "}
+                    </span>
+                  ))}
+                </span>
+              ) : (
+                "情報なし"
+              )}
+            </dd>
+          </div>
+          {plainSpecRows.map(([label, value]) => (
             <div key={label} className="flex flex-col gap-0.5">
               <dt className="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                 {label}
